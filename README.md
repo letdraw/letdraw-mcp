@@ -17,7 +17,7 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <img alt="Node >= 18" src="https://img.shields.io/badge/node-%3E%3D18-brightgreen">
+  <img alt="Node 18+" src="https://img.shields.io/badge/node-18%2B-brightgreen">
   <img alt="MCP: stdio + HTTP" src="https://img.shields.io/badge/MCP-stdio%20%2B%20HTTP-8A2BE2">
 </p>
 
