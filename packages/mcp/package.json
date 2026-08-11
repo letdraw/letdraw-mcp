@@ -1,0 +1,16 @@
+{
+  "name": "@letdraw/mcp",
+  "version": "0.1.0",
+  "description": "Zero-config MCP stdio bridge to the hosted LetDraw MCP server.",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/letdraw/letdraw-mcp.git", "directory": "packages/mcp" },
+  "homepage": "https://letdraw.com",
+  "keywords": ["letdraw", "mcp", "model-context-protocol", "diagram", "whiteboard", "ai"],
+  "type": "module",
+  "bin": { "letdraw-mcp": "bin/letdraw-mcp.mjs" },
+  "files": ["bin", "README.md"],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node bin/letdraw-mcp.mjs"
+  }
+}

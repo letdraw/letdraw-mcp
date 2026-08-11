@@ -1,0 +1,221 @@
+openapi: 3.1.0
+info:
+  title: LetDraw Public API
+  version: "1.0.0"
+  description: >
+    Read and author diagrams in a LetDraw account. Authenticated by a personal
+    API token (Authorization: Bearer ld_live_…), created in the app under
+    Account → Developer. Errors are returned as { error: { code, message } }.
+  license:
+    name: MIT
+servers:
+  - url: https://api.letdraw.com/api-v1
+security:
+  - bearerAuth: []
+tags:
+  - name: meta
+  - name: documents
+  - name: icons
+paths:
+  /:
+    get:
+      tags: [meta]
+      summary: API info + endpoint list
+      responses: { "200": { description: OK } }
+  /workspaces:
+    get:
+      tags: [meta]
+      summary: Workspaces the token can see
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspaces:
+                    type: array
+                    items: { $ref: '#/components/schemas/Workspace' }
+  /folders:
+    get:
+      tags: [meta]
+      summary: Folders in a workspace
+      parameters:
+        - { name: workspace, in: query, required: true, schema: { type: string } }
+      responses: { "200": { description: OK } }
+  /capabilities:
+    get:
+      tags: [meta]
+      summary: How to draw well - guide (markdown) for AI clients
+      responses: { "200": { description: OK } }
+  /libraries:
+    get:
+      tags: [icons]
+      summary: Built-in icon libraries (counts; items=1 for full label catalog)
+      parameters:
+        - { name: items, in: query, required: false, schema: { type: integer, enum: [1] } }
+      responses: { "200": { description: OK } }
+  /icons:
+    get:
+      tags: [icons]
+      summary: Search icons; use ref as element.iconRef
+      parameters:
+        - { name: query, in: query, required: true, schema: { type: string } }
+        - { name: library, in: query, required: false, schema: { type: string } }
+        - { name: limit, in: query, required: false, schema: { type: integer, minimum: 1, maximum: 50, default: 20 } }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  matches:
+                    type: array
+                    items: { $ref: '#/components/schemas/IconMatch' }
+  /documents:
+    get:
+      tags: [documents]
+      summary: List documents (paginated)
+      parameters:
+        - { name: workspace, in: query, required: false, schema: { type: string } }
+        - { name: folder, in: query, required: false, schema: { type: string } }
+        - { name: limit, in: query, required: false, schema: { type: integer, minimum: 1, maximum: 100, default: 50 } }
+        - { name: cursor, in: query, required: false, schema: { type: string } }
+      responses: { "200": { description: OK } }
+    post:
+      tags: [documents]
+      summary: Create a document
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateDocument' }
+      responses: { "200": { description: Created } }
+  /documents/from-code:
+    post:
+      tags: [documents]
+      summary: Build a document from compose/k8s/dot/plantuml/terraform/helm/sql
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code: { type: string }
+                name: { type: string }
+                workspaceId: { type: string }
+                folderId: { type: string }
+      responses: { "200": { description: Created } }
+  /documents/generate:
+    post:
+      tags: [documents]
+      summary: Generate a document from a natural-language prompt (uses your AI key)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [prompt]
+              properties:
+                prompt: { type: string }
+                name: { type: string }
+                workspaceId: { type: string }
+                folderId: { type: string }
+      responses: { "200": { description: Created } }
+  /documents/{id}:
+    get:
+      tags: [documents]
+      summary: Get a document + scene
+      parameters: [ { name: id, in: path, required: true, schema: { type: string } } ]
+      responses: { "200": { description: OK }, "404": { description: Not found } }
+    patch:
+      tags: [documents]
+      summary: Update a document (name and/or scene)
+      parameters: [ { name: id, in: path, required: true, schema: { type: string } } ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                scene: { $ref: '#/components/schemas/Scene' }
+      responses: { "200": { description: OK } }
+    delete:
+      tags: [documents]
+      summary: Delete a document
+      parameters: [ { name: id, in: path, required: true, schema: { type: string } } ]
+      responses: { "200": { description: OK } }
+  /documents/{id}/export:
+    get:
+      tags: [documents]
+      summary: Export a document to Mermaid or D2
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+        - { name: format, in: query, required: false, schema: { type: string, enum: [mermaid, d2], default: mermaid } }
+      responses: { "200": { description: OK } }
+  /documents/{id}/share:
+    post:
+      tags: [documents]
+      summary: Publish a read-only public link (idempotent)
+      parameters: [ { name: id, in: path, required: true, schema: { type: string } } ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expiresAt: { type: string, format: date-time, nullable: true }
+      responses: { "200": { description: OK } }
+    delete:
+      tags: [documents]
+      summary: Revoke the public link
+      parameters: [ { name: id, in: path, required: true, schema: { type: string } } ]
+      responses: { "200": { description: OK } }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: ld_live_token
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code: { type: string }
+            message: { type: string }
+    Workspace:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        role: { type: string }
+    IconMatch:
+      type: object
+      properties:
+        library: { type: string }
+        label: { type: string }
+        ref: { type: string, description: "Set as an element's iconRef." }
+    Scene:
+      type: object
+      description: LetDraw-native, or a compatible open whiteboard JSON format (auto-detected).
+      properties:
+        elements:
+          type: array
+          items: { type: object }
+    CreateDocument:
+      type: object
+      properties:
+        name: { type: string }
+        workspaceId: { type: string }
+        folderId: { type: string }
+        scene: { $ref: '#/components/schemas/Scene' }
