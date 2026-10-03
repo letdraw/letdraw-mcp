@@ -1,15 +1,44 @@
 {
   "name": "@letdraw/mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Zero-config MCP stdio bridge to the hosted LetDraw MCP server.",
+  "mcpName": "io.github.letdraw/letdraw",
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/letdraw/letdraw-mcp.git", "directory": "packages/mcp" },
-  "homepage": "https://letdraw.com",
-  "keywords": ["letdraw", "mcp", "model-context-protocol", "diagram", "whiteboard", "ai"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/letdraw/letdraw-mcp.git",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://docs.letdraw.com/en/reference/mcp-api/",
+  "bugs": {
+    "url": "https://github.com/letdraw/letdraw-mcp/issues"
+  },
+  "keywords": [
+    "letdraw",
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "diagram",
+    "whiteboard",
+    "architecture-diagram",
+    "ai",
+    "claude",
+    "cursor"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
-  "bin": { "letdraw-mcp": "bin/letdraw-mcp.mjs" },
-  "files": ["bin", "README.md"],
-  "engines": { "node": ">=18" },
+  "bin": {
+    "letdraw-mcp": "bin/letdraw-mcp.mjs"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "node bin/letdraw-mcp.mjs"
   }

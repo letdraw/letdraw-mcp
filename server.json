@@ -1,0 +1,47 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.letdraw/letdraw",
+  "title": "LetDraw",
+  "description": "Create, edit, share and export hand-drawn LetDraw diagrams, from code or a prompt.",
+  "version": "1.0.0",
+  "websiteUrl": "https://www.letdraw.com",
+  "repository": {
+    "url": "https://github.com/letdraw/letdraw-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.letdraw.com/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer followed by your personal LetDraw API token (ld_live_...). Create it in the LetDraw app under Account > Developer.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@letdraw/mcp",
+      "version": "0.1.1",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "LETDRAW_TOKEN",
+          "description": "Your personal LetDraw API token (ld_live_...). Create it in the LetDraw app under Account > Developer.",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "LETDRAW_MCP_URL",
+          "description": "Override the hosted MCP endpoint. Default: https://api.letdraw.com/mcp",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}
