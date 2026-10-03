@@ -22,7 +22,7 @@
 </p>
 
 LetDraw is a hand-drawn–style online whiteboard and diagramming app. With this
-integration an MCP client (Claude, Cursor, VS Code, Codex, …) or any HTTP client
+integration an MCP client (desktop AI apps, Cursor, VS Code, Codex, …) or any HTTP client
 can list workspaces, create and update diagrams, build a diagram from code
 (compose / Kubernetes / DOT / Terraform / SQL / …), stamp real product icons,
 export to Mermaid or D2, and share read-only links.
@@ -40,7 +40,7 @@ export to Mermaid or D2, and share read-only links.
 | [`spec/mcp-tools.md`](spec/mcp-tools.md) | The MCP tools, resources, and scopes |
 | [`spec/openapi.yaml`](spec/openapi.yaml) | OpenAPI 3.1 spec for the REST API |
 | [`spec/capabilities.md`](spec/capabilities.md) | "How to draw well in LetDraw" guide for AI clients |
-| [`docs/`](docs) | Getting started + per-client setup (Claude, Cursor, VS Code, Codex) |
+| [`docs/`](docs) | Getting started + per-client setup (desktop apps, HTTP clients, Cursor, VS Code, Codex) |
 | [`examples/`](examples) | Copy-paste recipes |
 
 ## Endpoints
@@ -61,7 +61,7 @@ The hosted server speaks Streamable-HTTP, so most clients connect directly. For
 a stdio client, or for the simplest possible setup, use the bridge:
 
 ```jsonc
-// Claude Desktop — claude_desktop_config.json
+// MCP client config (mcpServers block)
 {
   "mcpServers": {
     "letdraw": {
@@ -73,7 +73,7 @@ a stdio client, or for the simplest possible setup, use the bridge:
 }
 ```
 
-See [docs/clients](docs/clients) for Cursor, VS Code, Claude Code and Codex.
+See [docs/clients](docs/clients) for desktop apps, HTTP clients, Cursor, VS Code and Codex.
 
 ## 60-second start (REST)
 

@@ -3,7 +3,7 @@
  * @letdraw/mcp — a tiny, dependency-free MCP stdio bridge.
  *
  * The LetDraw MCP server is hosted and speaks stateless JSON-RPC 2.0 over
- * Streamable-HTTP. Many MCP clients (Claude Desktop, some Codex/Windsurf setups)
+ * Streamable-HTTP. Many MCP clients (several desktop apps, some Codex/Windsurf setups)
  * only launch stdio servers. This bridge is that stdio server: it reads
  * newline-delimited JSON-RPC messages on stdin, forwards each to the hosted
  * endpoint with your Bearer token, and writes the response back on stdout.

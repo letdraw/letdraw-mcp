@@ -1,8 +1,10 @@
-# Claude Desktop
+# Desktop AI apps
 
-Edit `claude_desktop_config.json` (Settings → Developer → Edit Config).
+Most desktop AI apps read MCP servers from a JSON config with an `mcpServers`
+block. Open the app's MCP settings (often under Settings → Developer) and add
+one of the entries below.
 
-## Option A — the LetDraw bridge (simplest)
+## Option A: the LetDraw bridge (simplest)
 
 ```jsonc
 {
@@ -16,7 +18,7 @@ Edit `claude_desktop_config.json` (Settings → Developer → Edit Config).
 }
 ```
 
-## Option B — generic remote bridge
+## Option B: generic remote bridge
 
 ```jsonc
 {
@@ -30,5 +32,5 @@ Edit `claude_desktop_config.json` (Settings → Developer → Edit Config).
 }
 ```
 
-Restart Claude Desktop. You should see the `letdraw` tools appear. Ask it to
+Restart the app. You should see the `letdraw` tools appear. Ask it to
 "list my LetDraw workspaces" to confirm.

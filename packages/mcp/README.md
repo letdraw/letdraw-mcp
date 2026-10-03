@@ -11,7 +11,7 @@ copy-paste setup.
 ## Use
 
 ```jsonc
-// Claude Desktop — claude_desktop_config.json
+// MCP client config (mcpServers block)
 {
   "mcpServers": {
     "letdraw": {

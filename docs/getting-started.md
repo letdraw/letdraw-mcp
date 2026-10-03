@@ -17,7 +17,7 @@ You can also narrow a token to a single workspace.
 
 ## 2. Choose how to connect
 
-- **MCP** — for AI assistants (Claude, Cursor, VS Code, Codex). See
+- **MCP** — for AI assistants (desktop apps, Cursor, VS Code, Codex). See
   [clients/](clients). Endpoint: `https://api.letdraw.com/mcp`.
 - **REST** — for scripts and services. See
   [`../spec/openapi.yaml`](../spec/openapi.yaml) or use
