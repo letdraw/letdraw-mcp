@@ -3,7 +3,7 @@
   "name": "io.github.letdraw/letdraw",
   "title": "LetDraw",
   "description": "Create, edit, share and export hand-drawn LetDraw diagrams, from code or a prompt.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "websiteUrl": "https://www.letdraw.com",
   "repository": {
     "url": "https://github.com/letdraw/letdraw-mcp",
@@ -27,7 +27,7 @@
     {
       "registryType": "npm",
       "identifier": "@letdraw/mcp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "transport": { "type": "stdio" },
       "environmentVariables": [
         {

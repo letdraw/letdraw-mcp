@@ -1,6 +1,6 @@
 {
   "name": "@letdraw/mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Zero-config MCP stdio bridge to the hosted LetDraw MCP server.",
   "mcpName": "io.github.letdraw/letdraw",
   "license": "MIT",
